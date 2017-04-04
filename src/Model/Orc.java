@@ -41,6 +41,12 @@ public class Orc {
     	this.yloc = rand.nextInt(Board.frameHeight - imgHeight);    	
     	justChanged = false;
     }
+    public int getImgWidth(){
+    	return imgWidth;
+    }
+    public int getImgHeight(){
+    	return imgHeight;
+    }
     public int getDir(){
     	return dir;
     }
@@ -67,12 +73,8 @@ public class Orc {
     }
     //
     public int getPicNum(){
-    	return picNum;
+    	return picNum++;
     }
-    public void setPicNum(){
-    	picNum = (picNum+1)%10; //Need to update with correct frame count from action in view
-    }
-    //
     public int getYDir(){
     	return ydir;
     }

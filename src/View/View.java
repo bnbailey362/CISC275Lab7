@@ -7,21 +7,21 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import Model.Board;
+import Model.Orc;
 
 public class View extends JPanel {
     BufferedImage[][] pics;
     BufferedImage[][] shoot;
     BufferedImage[][] jump;
     BufferedImage[][] die;
-    static boolean justChanged = false;
-    final static int frameWidth = 500;
-    final static int frameHeight = 300;
-    final static int imgWidth = 165;
-    final static int imgHeight = 165;
+    ArrayList<Orc> Tribe;
 	
     public void Button(){
     	
@@ -32,17 +32,19 @@ public class View extends JPanel {
 		JButton b2 = new JButton("ACTION");
 		b0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//add orc to list
+				Tribe.add(new Orc());
 			} 
 		});
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//remove orc from list
+				Tribe.remove(0);
 			} 
 		});
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//change orc action for each orc
+				for(Orc gary : Tribe){
+					gary.setAction();
+				}
 			}
 		});
     }
@@ -91,6 +93,10 @@ public class View extends JPanel {
     }
     
 	public View(){
+		int imgWidth = Tribe.get(0).getImgWidth(); 
+		int imgHeight = Tribe.get(0).getImgHeight();
+		int frameWidth; //Call getFrameWidth on Board
+		int frameHeight; //call getFrameHeight on Board
     	BufferedImage[] imgs1 = createImageRun();
     	pics = new BufferedImage[imgs1.length][10];
     	for(int j =0;j<imgs1.length;j++){
@@ -122,15 +128,13 @@ public class View extends JPanel {
 	public void paint(Graphics g) {
 		//JButton b0 = new JButton("ADD");
 		//g.drawImage(b0,5,5,Color.gray, this);
-    	//accesses orc list here, gets orcs
-		//List orclist = List;
-		for(int i=0;i<2;i++){//for each orc in list
-			int orcAction = 0;
-    		int orcx=1;
-    		int orcy=1;
-    		int picNum=0;
-    		int dir=0;
-    		//function action, x, t, picnum, and dir
+
+		for(Orc Steve : Tribe){//for each orc in list
+			int orcAction = Steve.getAction();
+    		int orcx = Steve.getXLoc();
+    		int orcy = Steve.getYLoc();
+    		int picNum = Steve.getPicNum();
+    		int dir = Steve.getDir();
     		if(orcAction == 0){
     			picNum = picNum % 10;
     			g.drawImage(pics[dir][picNum], orcx, orcy, Color.gray, this);
