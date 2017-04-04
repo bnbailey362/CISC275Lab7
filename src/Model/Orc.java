@@ -23,10 +23,10 @@ public class Orc {
     	this.yloc = rand.nextInt(Board.frameHeight - imgHeight);    	
     	justChanged = false;
     }
-    public int getImgWidth(){
+    public static int getImgWidth(){
     	return imgWidth;
     }
-    public int getImgHeight(){
+    public static int getImgHeight(){
     	return imgHeight;
     }
     public Direction getDir(){

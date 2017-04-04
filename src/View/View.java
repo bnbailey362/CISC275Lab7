@@ -31,7 +31,7 @@ public class View extends JPanel {
     }
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        frame.getContentPane().add(new Animation());
+        frame.getContentPane().add(new View());
         frame.setBackground(Color.gray);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(background.getFrameWidth(), background.getFrameHeight());
@@ -59,6 +59,7 @@ public class View extends JPanel {
         frame.add(b0);
         frame.add(b1);
         frame.add(b2);
+        Tribe.add(new Orc());
         for(int i = 0; i < 1000; i++){
             //update(); the function that updates the orcs and board
             frame.repaint();
@@ -114,8 +115,8 @@ public class View extends JPanel {
     }
     
 	public View(){
-		int imgWidth = Tribe.get(0).getImgWidth(); 
-		int imgHeight = Tribe.get(0).getImgHeight();
+		int imgWidth = Orc.getImgWidth(); 
+		int imgHeight = Orc.getImgHeight();
 		int frameWidth = background.getFrameWidth(); 
 		int frameHeight = background.getFrameHeight(); 
     	BufferedImage[] imgs1 = createImageRun();
