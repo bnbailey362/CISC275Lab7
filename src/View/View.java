@@ -1,7 +1,6 @@
 package View;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Color;import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -13,7 +12,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import Model.Board;
+import Model.Action;
+import Model.Board;		//IDK if this is supposed to be here, but otherwise, why have a Board class at all?
+import Model.Direction;
 import Model.Orc;
 
 public class View extends JPanel {
@@ -43,7 +44,7 @@ public class View extends JPanel {
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				for(Orc gary : Tribe){
-					gary.setAction();
+					gary.setAction(Action.RUN);		//Doesn't Actually Change it to run, in place so we can kill orcs.
 				}
 			}
 		});
@@ -130,20 +131,20 @@ public class View extends JPanel {
 		//g.drawImage(b0,5,5,Color.gray, this);
 
 		for(Orc Steve : Tribe){//for each orc in list
-			int orcAction = Steve.getAction();
+			Action orcAction = Steve.getAction();
     		int orcx = Steve.getXLoc();
     		int orcy = Steve.getYLoc();
     		int picNum = Steve.getPicNum();
-    		int dir = Steve.getDir();
-    		if(orcAction == 0){
+    		int dir = Steve.getDir().getTotalDir();
+    		if(orcAction == Action.RUN){
     			picNum = picNum % 10;
     			g.drawImage(pics[dir][picNum], orcx, orcy, Color.gray, this);
     		}
-    		if(orcAction == 1){
+    		else if(orcAction == Action.JUMP){
     			picNum = picNum % 8;
         		g.drawImage(jump[dir][picNum], orcx, orcy, Color.gray, this);
     		}
-    		if(orcAction == 2){
+    		else if(orcAction == Action.SHOOT){
     			picNum = picNum % 4;
         		g.drawImage(shoot[dir][picNum], orcx, orcy, Color.gray, this);
         	}
