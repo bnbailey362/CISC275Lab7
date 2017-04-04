@@ -23,7 +23,7 @@ public class View extends JPanel {
     BufferedImage[][] shoot;
     BufferedImage[][] jump;
     BufferedImage[][] die;
-    static ArrayList<Orc> Tribe;
+    static ArrayList<Orc> Tribe = new ArrayList<Orc>();
 	static Board background = new Board();
 	
     public void Button(){
@@ -59,7 +59,6 @@ public class View extends JPanel {
         frame.add(b0);
         frame.add(b1);
         frame.add(b2);
-        Tribe.add(new Orc());
         for(int i = 0; i < 1000; i++){
             //update(); the function that updates the orcs and board
             frame.repaint();
