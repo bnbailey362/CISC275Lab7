@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Model.Action;
@@ -22,32 +23,51 @@ public class View extends JPanel {
     BufferedImage[][] shoot;
     BufferedImage[][] jump;
     BufferedImage[][] die;
-    ArrayList<Orc> Tribe;
+    static ArrayList<Orc> Tribe;
+	static Board background = new Board();
 	
     public void Button(){
     	
     }
-    public void initUI(){
-    	JButton b0 = new JButton("ADD");
-		JButton b1 = new JButton("REMOVE");
-		JButton b2 = new JButton("ACTION");
-		b0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				Tribe.add(new Orc());
-			} 
-		});
-		b1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				Tribe.remove(0);
-			} 
-		});
-		b2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				for(Orc gary : Tribe){
-					gary.setAction(Action.RUN);		//Doesn't Actually Change it to run, in place so we can kill orcs.
-				}
-			}
-		});
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(new Animation());
+        frame.setBackground(Color.gray);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(background.getFrameWidth(), background.getFrameHeight());
+        frame.setVisible(true);
+        JButton b0 = new JButton("ADD");
+        JButton b1 = new JButton("REMOVE");
+        JButton b2 = new JButton("ACTION");
+        b0.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	Tribe.add(new Orc());
+            } 
+        });
+        b1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	Tribe.remove(0);
+            } 
+        });
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                for(Orc Gary : Tribe){
+                	Gary.setAction(false); 
+                }
+            }
+        });
+        frame.add(b0);
+        frame.add(b1);
+        frame.add(b2);
+        for(int i = 0; i < 1000; i++){
+            //update(); the function that updates the orcs and board
+            frame.repaint();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     
@@ -96,8 +116,8 @@ public class View extends JPanel {
 	public View(){
 		int imgWidth = Tribe.get(0).getImgWidth(); 
 		int imgHeight = Tribe.get(0).getImgHeight();
-		int frameWidth; //Call getFrameWidth on Board
-		int frameHeight; //call getFrameHeight on Board
+		int frameWidth = background.getFrameWidth(); 
+		int frameHeight = background.getFrameHeight(); 
     	BufferedImage[] imgs1 = createImageRun();
     	pics = new BufferedImage[imgs1.length][10];
     	for(int j =0;j<imgs1.length;j++){

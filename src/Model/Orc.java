@@ -36,8 +36,8 @@ public class Orc {
     public Action getAction(){
     	return action;
     }
-    public void setAction(Action death){
-    	if(death != Action.DEATH){
+    public void setAction(Boolean death){
+    	if(death == false){
 	    	if(action == Action.RUN){
 	    		action = Action.JUMP;
 	    	}
