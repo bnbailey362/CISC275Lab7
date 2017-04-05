@@ -3,23 +3,40 @@ package Model;
 import java.util.Random;
 
 public class Orc {
-	Direction orcDirection;
-	Action action;
+	Direction orcDirection;		
+	Action action;				
 	int picNum;
-    int xloc;
+    int xloc;					//X and Y Coord on the Frame
     int yloc;
-    int xIncr = 8;
-    int yIncr = 2;
-    static boolean justChanged = false;
+    int xIncr = 8;				//X speed, positive is right, negative is left
+    int yIncr = 2;				//Y speed, positive is down, negative is up
+    static boolean justChanged = false;	//Checks to see if the orcs direction was just changed from hitting a wall
     public final static int imgWidth = 165;
     public final static int imgHeight = 165;
     Random rand = new Random();
     
     public Orc(){
-    	orcDirection = new Direction(1,1);
-    	this.action = Action.RUN;
-    	picNum = 0;
-    	this.xloc = rand.nextInt(Board.frameWidth - imgWidth);
+    	int dirx = rand.nextInt(2);		//Sets the Orcs random direction
+    	int diry = rand.nextInt(2);
+    	if(dirx == 1){
+    		if(diry == 1){
+    			orcDirection = new Direction(1,1);
+    		}
+    		else{
+    			orcDirection = new Direction(1,-1);
+    		}
+    	}
+    	else{
+    		if(diry == 1){
+    			orcDirection = new Direction(-1,1);
+    		}
+    		else{
+    			orcDirection = new Direction(-1,-1);
+    		}
+    	}
+    	this.action = Action.RUN;		//Sets the Orc to default to Run
+    	picNum = 0;						
+    	this.xloc = rand.nextInt(Board.frameWidth - imgWidth);//Set the Orc at a random x and y coord
     	this.yloc = rand.nextInt(Board.frameHeight - imgHeight);    	
     	justChanged = false;
     }
@@ -39,7 +56,7 @@ public class Orc {
     public Action getAction(){
     	return action;
     }
-    public void setAction(Boolean death){
+    public void setAction(Boolean death){	//Changes the Orc to the next action
     	if(death == false){
 	    	if(action == Action.RUN){
 	    		action = Action.JUMP;
@@ -90,7 +107,7 @@ public class Orc {
     	return justChanged;
     }
     public void setJustChanged(boolean change){
-    	this.justChanged = change;
+    	justChanged = change;
     }
 
 	public int getYdir() {
@@ -107,11 +124,11 @@ public class Orc {
 		return orcDirection.getTotalDir();
 	}
 
-	public void setXdir(int i) {
+	public void setXdir(int i) {				//After contact with a wall, changes the direction by swapping the x and y directions
 		orcDirection = new Direction(i,orcDirection.getYdir());
 	}
 	
-	public void setYdir(int i) {
+	public void setYdir(int i) {				//After contact with a wall, changes the direction by swapping the x and y directions
 		orcDirection = new Direction(orcDirection.getXdir(),i);
 	}
 

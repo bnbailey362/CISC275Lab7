@@ -1,5 +1,5 @@
 package Model;
 
 public enum Action {
-	RUN, JUMP, SHOOT, DEATH
+	RUN, JUMP, SHOOT, DEATH	//The Four Possible Actions
 }

@@ -22,7 +22,7 @@ import Model.Orc;
 
 public class Animation extends JPanel {
 
-    private static final int NUMIMGRUN = 10;
+    private static final int NUMIMGRUN = 10;		//Sets the values of the number of pics for each action
     private static final int NUMIMGJUMP = 8;
     private static final int NUMIMGSHOOT = 4;
     private static final int NUMIMGDEATH = 7;
@@ -30,15 +30,15 @@ public class Animation extends JPanel {
     int picNum = 0;
     
     
-    BufferedImage[][] runPics;
+    BufferedImage[][] runPics;						//BufferedImage Arrays to hold the animations
     BufferedImage[][] shootPics;
     BufferedImage[][] jumpPics;
     BufferedImage[][] deathPics;
     
-	static Board board;
-	static ArrayList<Orc> tribe;
+	static Board board;								
+	static ArrayList<Orc> tribe;					//Arraylist of Orcs
 
-    //Override this JPanel's paint method to cycle through picture array and draw images
+    //Paints each orc depending on its action, direction, and location
     public void paint(Graphics g) {
     	for(Orc b : tribe){
     		b.setPicNum((b.getPicNum()+ 1) % Animation.getFrameCount(b.getAction()));
@@ -53,40 +53,36 @@ public class Animation extends JPanel {
         	}
     	}
     	super.paintComponents(g);
-    	
-    	// TODO: Keep the orc from walking off-screen, turn around when bouncing off walls.
-		//Be sure that animation picture direction matches what is happening on screen.
     }
 
-    //Make frame, loop on repaint and wait
     public static void main(String[] args) {
-    	JFrame frame = new JFrame();
-    	Animation animation = new Animation();
+    	JFrame frame = new JFrame();				//Create background
+    	Animation animation = new Animation();		//Create Animation for Buttons
     	
-    	board = new Board();
-    	tribe = board.getTribe();
+    	board = new Board();						//Set board
+    	tribe = board.getTribe();					//Load the Arraylist of Orcs 
     	
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	 frame.setSize(board.getFrameWidth(), board.getFrameHeight());
     	frame.setVisible(true);
     	
-    	JButton b0 = new JButton("ADD");
+    	JButton b0 = new JButton("ADD");			//Adds the three buttons
         JButton b1 = new JButton("REMOVE");
         JButton b2 = new JButton("ACTION");
         
         
-        b0.addActionListener(new ActionListener() {
+        b0.addActionListener(new ActionListener() {	//Sets the action for the Add button
             public void actionPerformed(ActionEvent event) {
             	tribe.add(new Orc());
             } 
         });
-        b1.addActionListener(new ActionListener() {
+        b1.addActionListener(new ActionListener() {	//Sets the actions for the Remove button
             public void actionPerformed(ActionEvent event) {
             	tribe.remove(0);
             } 
         });
-        b2.addActionListener(new ActionListener() {
+        b2.addActionListener(new ActionListener() {	//Sets the action for the Action button
             public void actionPerformed(ActionEvent event) {
                 for(Orc Gary : tribe){
                 	Gary.setAction(false); 
@@ -94,21 +90,21 @@ public class Animation extends JPanel {
             }
         });
         
-        b0.setVisible(true);
+        b0.setVisible(true);						//Makes each button visible
         b1.setVisible(true);
         b2.setVisible(true);
         
-        animation.add(b0);
+        animation.add(b0);							//Adds the buttons to the animation
         animation.add(b1);
         animation.add(b2);
         
         
         
-        frame.getContentPane().add(animation);
+        frame.getContentPane().add(animation);		//Adds the animation to the frame
         frame.invalidate();
         
     	while(true){
-    		board.update();
+    		board.update();							//Update board and repaint
     		frame.repaint();
     		try {
     			Thread.sleep(100);
@@ -120,9 +116,9 @@ public class Animation extends JPanel {
 
    
 
-	//Constructor: get image, segment and store in array
-    public Animation(){
-    	BufferedImage[] imgs = createRunImage();
+	
+    public Animation(){						//Loads the 3 Animations in all 4 directions
+    	BufferedImage[] imgs = createRunImage();		
     	runPics = new BufferedImage[imgs.length][NUMIMGRUN];
     	for(int j =0;j<imgs.length;j++){
     	BufferedImage[] tempPic = new BufferedImage[NUMIMGRUN];
@@ -149,7 +145,6 @@ public class Animation extends JPanel {
     			shootPics[j] = tempPic;
     		}
     	}
-    	// TODO: Change this constructor so that at least eight orc animation pngs are loaded
     }  
     
     //Read image from file and return
@@ -165,10 +160,8 @@ public class Animation extends JPanel {
     		e.printStackTrace();
     	}
     	return bufferedImages;
-    	
-    	// TODO: Change this method so you can load other orc animation bitmaps
     }
-    
+  //Read image from file and return
     private BufferedImage[] createJumpImage(){
     	int numDirections = 8;
     	String[] imagenames = {"orc_jump_north", "orc_jump_northeast", "orc_jump_east", "orc_jump_southeast", "orc_jump_south", "orc_jump_southwest", "orc_jump_west", "orc_jump_northwest"};
@@ -182,6 +175,7 @@ public class Animation extends JPanel {
     	}
     	return bufferedImages;
     }
+  //Read image from file and return
     private BufferedImage[] createShootImage(){
     	int numDirections = 8;
     	String[] imagenames = {"orc_fire_north", "orc_fire_northeast", "orc_fire_east", "orc_fire_southeast", "orc_fire_south", "orc_fire_southwest", "orc_fire_west", "orc_fire_northwest"};
