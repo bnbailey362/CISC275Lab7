@@ -117,7 +117,7 @@ public class Animation extends JPanel {
    
 
 	
-    public Animation(){						//Loads the 3 Animations in all 4 directions
+    public Animation(){						//Loads the 3 Animations in all directions
     	BufferedImage[] imgs = createRunImage();		
     	runPics = new BufferedImage[imgs.length][NUMIMGRUN];
     	for(int j =0;j<imgs.length;j++){
