@@ -10,23 +10,26 @@ public class Orc {
     int yloc;
     int xIncr = 8;
     int yIncr = 2;
-    boolean justChanged;
-    final static int imgWidth = 165;
-    final static int imgHeight = 165;
+    static boolean justChanged = false;
+    public final static int imgWidth = 165;
+    public final static int imgHeight = 165;
     Random rand = new Random();
     
     public Orc(){
-    	orcDirection = Direction.getRandomDirection();
+    	orcDirection = new Direction(1,1);
     	this.action = Action.RUN;
     	picNum = 0;
     	this.xloc = rand.nextInt(Board.frameWidth - imgWidth);
     	this.yloc = rand.nextInt(Board.frameHeight - imgHeight);    	
     	justChanged = false;
     }
-    public static int getImgWidth(){
+    
+ 
+    
+    public int getImgWidth(){
     	return imgWidth;
     }
-    public static int getImgHeight(){
+    public int getImgHeight(){
     	return imgHeight;
     }
     public Direction getDir(){
@@ -60,7 +63,7 @@ public class Orc {
     }
     //
     public int getPicNum(){
-    	return picNum++;
+    	return picNum;
     }
     //
     public int getXLoc(){
@@ -69,11 +72,11 @@ public class Orc {
     public int getYLoc(){
     	return yloc;
     }
-    public void setXLoc(int xChange){
-    	xloc += xChange;
+    public void setXLoc(int newX){
+    	xloc = newX;
     }
-    public void setYLoc(int yChange){
-    	yloc += yChange;
+    public void setYLoc(int newY){
+    	yloc = newY;
     }
     //
     public int getxIncr(){
@@ -89,4 +92,35 @@ public class Orc {
     public void setJustChanged(boolean change){
     	this.justChanged = change;
     }
+
+	public int getYdir() {
+		return orcDirection.getYdir();
+	}
+
+
+
+	public int getXdir() {
+		return orcDirection.getXdir();
+	}
+
+	public int getTotalDir(){
+		return orcDirection.getTotalDir();
+	}
+
+	public void setXdir(int i) {
+		orcDirection = new Direction(i,orcDirection.getYdir());
+	}
+	
+	public void setYdir(int i) {
+		orcDirection = new Direction(orcDirection.getXdir(),i);
+	}
+
+
+
+	public void setPicNum(int i) {
+		picNum = i;
+		
+	}
+
+
 }

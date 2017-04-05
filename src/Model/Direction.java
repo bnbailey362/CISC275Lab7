@@ -2,14 +2,13 @@ package Model;
 
 import java.util.Random;
 
-public enum Direction {
-	NORTHEAST(1,-1), SOUTHEAST(1,1), SOUTHWEST(-1,1), NORTHWEST(-1,-1);
+public class Direction {
 	
 	private int xdir;
 	private int ydir;
 	private int totaldir;
 	
-	private Direction(int xdir, int ydir) {
+	public Direction(int xdir, int ydir) {
 		this.xdir = xdir;
 		this.ydir = ydir;
 		if(xdir == 1 && ydir==-1){
@@ -36,10 +35,5 @@ public enum Direction {
 		return totaldir;
 	}
 	
-	private static final Direction[] VALUES = values();
-	private static final int SIZE = VALUES.length;
-	private static final Random RANDOM = new Random();
-	public static Direction getRandomDirection()  {
-		return VALUES[RANDOM.nextInt(SIZE)];
-	}
+	
 }
